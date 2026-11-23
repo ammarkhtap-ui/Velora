@@ -1,0 +1,511 @@
+/* =========================
+   GENERAL
+========================= */
+
+body {
+    background-color: #FAF4F6;
+}
+
+/* يخلي الضغط على الروابط (#fr / #Social1) ينزل بنعومة */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 20px;
+}
+
+
+/* =========================
+   GALLERY (MASONRY)
+========================= */
+
+.gallery-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px;
+    box-sizing: border-box;
+
+    /* Masonry: الصور بأطوالها الطبيعية من غير قص */
+    column-count: 4;
+    column-gap: 16px;
+}
+
+/* قسم السوشيال فيه 3 صور بس */
+.gallery-grid.is-compact {
+    max-width: 1000px;
+    column-count: 3;
+}
+
+.g-item {
+    position: relative;
+    display: block;
+    width: 100%;
+    margin: 0 0 16px;
+    padding: 0;
+    border: none;
+    border-radius: 14px;
+    overflow: hidden;
+    cursor: zoom-in;
+    background-color: #EBD3DA;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);
+    break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+    min-height: 180px;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* بعد ما الصورة تحمل نشيل الارتفاع المؤقت */
+.g-item.loaded {
+    min-height: 0;
+}
+
+.g-item img {
+    display: block;
+    width: 100%;
+    height: auto;
+    animation: imgFade 0.6s ease both;
+}
+
+@keyframes imgFade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* طبقة الهوفر + أيقونة التكبير */
+.g-zoom {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to top, rgba(74, 16, 37, 0.65), rgba(74, 16, 37, 0.1));
+    color: #FFFFFF;
+    font-size: 22px;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+}
+
+.g-item:hover,
+.g-item:focus-visible {
+    transform: translateY(-6px);
+    box-shadow: 0px 8px 25px #8B2948;
+}
+
+.g-item:hover .g-zoom,
+.g-item:focus-visible .g-zoom {
+    opacity: 1;
+}
+
+.g-item:focus-visible {
+    outline: 3px solid #8B2948;
+    outline-offset: 3px;
+}
+
+
+/* =========================
+   LIGHTBOX
+========================= */
+
+body.lb-open {
+    overflow: hidden;
+}
+
+.lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(20, 5, 12, 0.94);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.lightbox.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.lb-stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 60px 70px;
+    box-sizing: border-box;
+}
+
+.lb-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.6);
+    user-select: none;
+    -webkit-user-drag: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.lb-img.is-changing {
+    opacity: 0;
+    transform: scale(0.97);
+}
+
+.lb-btn {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    border: none;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.12);
+    color: #FFFFFF;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.lb-btn:hover,
+.lb-btn:focus-visible {
+    background-color: #8B2948;
+    transform: scale(1.08);
+    outline: none;
+}
+
+.lb-close {
+    top: 16px;
+    right: 16px;
+}
+
+.lb-prev {
+    left: 16px;
+    top: 50%;
+    margin-top: -23px;
+}
+
+.lb-next {
+    right: 16px;
+    top: 50%;
+    margin-top: -23px;
+}
+
+.lb-counter {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 5px 14px;
+    border-radius: 30px;
+    background-color: rgba(255, 255, 255, 0.12);
+    color: #FAF4F6;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+
+/* =========================
+   FURNITURE TITLE
+========================= */
+
+.fr {
+    margin-top: 100px;
+    margin-bottom: 50px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 30px;
+    text-align: center;
+}
+
+.fr span {
+    color: #8B2948;
+}
+
+
+/* =========================
+   INTRO
+========================= */
+
+.intro-p h2 {
+    margin-top: 100px;
+    font-size: 50px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    word-spacing: 1px;
+    text-align: center;
+}
+
+.intro-p span {
+    color: #8B2948;
+}
+
+p {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    word-spacing: 1px;
+    text-align: center;
+}
+
+.intro {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.intro img {
+    margin-left: 50px;
+    width: 100px;
+}
+
+
+/* =========================
+   NAVIGATION LINKS
+========================= */
+
+.links {
+    background-color: #4A1025;
+    width: 400px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    align-items: center;
+    padding: 10px 30px;
+    border-radius: 14px;
+}
+
+.links a {
+    text-decoration: none;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #FAF4F6;
+    transition: color 0.3s ease;
+}
+
+.links a:hover {
+    color: #D9A6B5;
+}
+
+
+/* =========================
+   DIVIDER
+========================= */
+
+hr {
+    margin-top: 40px;
+    border: none;
+    height: 2px;
+    background-color: #8B2948;
+    margin-bottom: 50px;
+}
+
+
+/* =========================
+   SOCIAL TITLE
+========================= */
+
+.intro-Social h2 {
+    margin-top: 100px;
+    margin-bottom: 50px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 30px;
+    text-align: center;
+}
+
+.intro-Social span {
+    color: #8B2948;
+}
+
+/* مسافة تحت آخر قسم */
+.gallery-grid:last-of-type {
+    margin-bottom: 80px;
+}
+
+
+/* =========================================
+   RESPONSIVE DESIGN - LARGE TABLET
+========================================= */
+
+@media (max-width: 1100px) {
+
+    .gallery-grid {
+        column-count: 3;
+    }
+
+}
+
+
+/* =========================================
+   RESPONSIVE DESIGN - TABLET
+========================================= */
+
+@media (max-width: 768px) {
+
+    /* GALLERY */
+    .gallery-grid {
+        column-count: 3;
+        column-gap: 12px;
+        padding: 0 15px;
+    }
+
+    .g-item {
+        margin-bottom: 12px;
+        border-radius: 10px;
+    }
+
+    /* INTRO */
+    .intro {
+        flex-wrap: wrap;
+        gap: 15px;
+        padding: 0 15px;
+    }
+
+    .intro img {
+        margin-left: 0;
+    }
+
+    .links {
+        width: auto;
+        max-width: 100%;
+        gap: 20px;
+        padding: 10px 20px;
+    }
+
+    /* TITLES */
+    .intro-p h2 {
+        font-size: 40px;
+    }
+
+    /* LIGHTBOX */
+    .lb-stage {
+        padding: 60px 20px;
+    }
+
+}
+
+
+/* =========================================
+   RESPONSIVE DESIGN - MOBILE
+========================================= */
+
+@media (max-width: 480px) {
+
+    /* INTRO */
+    .intro {
+        justify-content: center;
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    .intro img {
+        width: 80px;
+        margin: 0;
+    }
+
+    /* NAVIGATION */
+    .links {
+        width: 100%;
+        box-sizing: border-box;
+        gap: 15px;
+        padding: 12px 8px;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+
+    .links a {
+        font-size: 13px;
+    }
+
+    /* TITLES */
+    .intro-p h2 {
+        margin-top: 50px;
+        font-size: 30px;
+    }
+
+    .fr {
+        font-size: 25px;
+        margin-top: 60px;
+    }
+
+    .intro-Social h2 {
+        font-size: 25px;
+        margin-top: 60px;
+    }
+
+    /* GALLERY: عمودين على الموبيل */
+    .gallery-grid,
+    .gallery-grid.is-compact {
+        column-count: 2;
+        column-gap: 8px;
+        padding: 0 10px;
+    }
+
+    .g-item {
+        margin-bottom: 8px;
+        border-radius: 8px;
+        min-height: 140px;
+        box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.25);
+    }
+
+    /* مفيش هوفر على اللمس */
+    .g-item:hover {
+        transform: none;
+    }
+
+    .g-zoom {
+        display: none;
+    }
+
+    /* LIGHTBOX */
+    .lb-stage {
+        padding: 70px 8px;
+    }
+
+    .lb-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+
+    .lb-prev,
+    .lb-next {
+        top: auto;
+        bottom: 14px;
+        margin-top: 0;
+    }
+
+    .lb-prev {
+        left: 16px;
+    }
+
+    .lb-next {
+        right: 16px;
+    }
+
+}
+
+
+/* =========================
+   REDUCED MOTION
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    .g-item,
+    .lightbox,
+    .lb-img {
+        transition: none;
+    }
+
+    .g-item img {
+        animation: none;
+    }
+
+}
